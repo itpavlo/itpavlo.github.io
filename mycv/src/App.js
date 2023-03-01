@@ -11,6 +11,10 @@ function App() {
         </p>
           Learn React
       </header>
+        <button>Mariia Btn</button>
+        <button>Mariia Btn</button>
+        <button>Mariia Btn</button>
+        <button>Mariia Btn</button>
     </div>
   );
 }
