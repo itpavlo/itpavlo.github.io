@@ -1,12 +1,19 @@
-import logo from './logo.svg';
-import OksanaComponent from './components/OksanaComponent';
+import Navbar from "./components/Navbar/Navbar";
+import { Outlet} from "react-router-dom";
+import "./index.css";
+import { AppRoutes } from "./common/AppRoutes";
+
+
 
 function App() {
   return (
     <div>
-      <OksanaComponent/>
+        <Navbar />
+        <Outlet />
     </div>
   );
 }
 
 export default App;
+
+

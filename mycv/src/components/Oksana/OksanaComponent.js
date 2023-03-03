@@ -1,4 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { Route, Routes } from "react-router-dom";
+import { Outlet } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+import { AppRoutes } from "../../common/AppRoutes";
+import { Link } from "react-router-dom";
+
 
 const Year = (props) => {
   const [year, setYear] = React.useState(props.initialValue);
@@ -14,9 +20,23 @@ const Year = (props) => {
 };
 
 const OksanaComponent = () => {
+
+  const navigate = useNavigate();
+  const location = useLocation()
+
+  useEffect(()=>{
+    console.log(location.pathname)
+  // setTimeout(()=>{
+  //   navigate(AppRoutes.IHOR)
+  // }, 3000)
+  },[])
   return (
     <div>
+
       <h1>Історія Львова</h1>
+      <Link to={AppRoutes.IHOR}>
+          <span style={{fontSize: '20px'}}>MENTOR</span>
+      </Link>
       <img src="/XIX.jpg" />
       <p>
         <b>Львів</b> -
@@ -95,6 +115,11 @@ const OksanaComponent = () => {
           </li>
         </ol>
       </div>
+      <Outlet />
+      {/*<Routes>*/}
+      {/*  <Route path="/more" element={<h1>MORE</h1>} />*/}
+      {/*  <Route path="*" element={<h1>NOT FOUND</h1>} />*/}
+      {/*</Routes>*/}
     </div>
   );
 };

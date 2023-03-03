@@ -1,0 +1,10 @@
+.container{
+  background-color: #a2a2e5;
+  height: 40px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  &:hover{
+    background-color: yellow;
+  }
+}
