@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import { AppRoutes } from "./AppRoutes";
 import OksanaComponent from "../components/Oksana/OksanaComponent";
 import App from "../App";
+import RouteComponent from '../components/Oksana/RouteComponent';
 
 export const router = createBrowserRouter([
     {
@@ -12,6 +13,11 @@ export const router = createBrowserRouter([
             {
                 path: AppRoutes.OKS,
                 element: <OksanaComponent/>,
+                errorElement: <h1>NOT FOUND</h1>,
+            },
+            {
+                path: AppRoutes.ROUTE_OKS,
+                element: <RouteComponent/>,
                 errorElement: <h1>NOT FOUND</h1>,
             },
             {
