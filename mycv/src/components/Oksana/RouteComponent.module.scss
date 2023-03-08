@@ -1,5 +1,20 @@
+.title {
+  text-align: center;
+}
+
 .container {
   display: flex;
   justify-content: center;
+  flex-flow: column;
   margin-top: 20px;
+}
+
+.navigation{
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.content{
+  padding-top: 20px;
+    text-align: center;
 }
