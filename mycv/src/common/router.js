@@ -13,6 +13,8 @@ import Lviv_milyavskiy from "../components/milyavskiyV/milyavskiy";
 import Navbar from "../components/Navbar/Navbar";
 import { PrivateRoute, PublicRoute } from "../components/HOC/RoutesHOCs/ROutesHOCs";
 import Login from "../Views/Login/Login";
+import MentorContainerHOC from "../Views/Mentor/Mentor.HOC";
+import Mentor from "../Views/Mentor/Mentor";
 
 export const router = createBrowserRouter([
     {
@@ -57,7 +59,6 @@ export const router = createBrowserRouter([
             {
                 path: AppRoutes.ROUTE_OKS,
                 element: <PrivateRoute Component={RouteComponent} />,
-                children: []
             },
             {
                 path: AppRoutes.USER_PROFILE,
@@ -81,6 +82,11 @@ export const router = createBrowserRouter([
     {
         path: AppRoutes.NOT_FOUND,
         element: <h1>NOT FOUND</h1>,
+    },
+    {
+        path: AppRoutes.MENTOR,
+        // element: <MentorContainerHOC Component={Mentor}/>,
+        element: <PrivateRoute Component={MentorContainerHOC} childComponent={Mentor}/>,
     },
 
 ]);

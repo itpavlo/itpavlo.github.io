@@ -12,11 +12,6 @@ import Coment from "./components/IvanMakow/IvanMakowComponent";
 function App() {
     console.log('APP')
 
-
-
-
-
-
     useEffect(()=>{
         const user = JSON.parse(localStorage.getItem('authUser'))
         console.log(user)
@@ -33,13 +28,15 @@ function App() {
     <div>
         <Navbar />
         {/*<HOCExample1 Component={Navbar}/>*/}
-        <Lviv_milyavskiy/>
+        {/*<Lviv_milyavskiy/>*/}
         <HOCExample2>
             <li>one</li>
             <li>two</li>
             <li>three</li>
         </HOCExample2>
         <Coment/>
+        <Outlet />
+
     </div>
   );
 }

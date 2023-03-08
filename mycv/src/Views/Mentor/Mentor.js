@@ -1,10 +1,19 @@
 import Navbar from "../../components/Navbar/Navbar";
+import User from "./components/User/User";
 
-const Mentor = ({data, handleClick}) => {
+const Mentor = ({users, handleDelete}) => {
+
      return (
         <div>
             <Navbar />
-            <h1 onClick={handleClick}>{data[0].name}</h1>
+            {users?.map((user, index) =>
+                <User
+                    user={user}
+                    index={index}
+                    key={user.id}
+                    handleDelete={handleDelete}
+                />
+            )}
         </div>
     )
 }

@@ -33,7 +33,6 @@ const OksanaComponent = () => {
   },[])
   return (
     <div>
-      <Navbar />
       <h1>Історія Львова</h1>
       <Link to={AppRoutes.IHOR}>
           <span style={{fontSize: '20px'}}>MENTOR</span>
