@@ -5,6 +5,7 @@ import { AppRoutes } from "./common/AppRoutes";
 import Lviv_milyavskiy from "./components/milyavskiyV/milyavskiy"
 import { HOCExample1, HOCExample2 } from "./components/HOC/HOCEXAMPLE/HOCExample";
 import { useEffect } from "react";
+import Coment from "./components/IvanMakow/IvanMakowComponent";
 
 
 
@@ -38,6 +39,7 @@ function App() {
             <li>two</li>
             <li>three</li>
         </HOCExample2>
+        <Coment/>
     </div>
   );
 }
