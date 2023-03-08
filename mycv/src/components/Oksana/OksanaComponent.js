@@ -4,6 +4,7 @@ import { Outlet } from "react-router-dom";
 import { useNavigate, useLocation } from "react-router-dom";
 import { AppRoutes } from "../../common/AppRoutes";
 import { Link } from "react-router-dom";
+import Navbar from "../Navbar/Navbar";
 
 
 const Year = (props) => {
@@ -32,7 +33,7 @@ const OksanaComponent = () => {
   },[])
   return (
     <div>
-
+      <Navbar />
       <h1>Історія Львова</h1>
       <Link to={AppRoutes.IHOR}>
           <span style={{fontSize: '20px'}}>MENTOR</span>
