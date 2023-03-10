@@ -8,7 +8,8 @@ export const AppRoutes = {
     STUDENTS: '/students',
     OKS: '/students/oks',
     MILYAVSKIY: '/students/milyavskiy',
-    IVANMAKOV: '/students/ivanmakov'
+    IVANMAKOV: '/students/ivanmakov',
+    TASK_ONE: '/task_one',
 }
 
 

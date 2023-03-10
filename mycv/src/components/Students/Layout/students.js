@@ -20,7 +20,7 @@ export default [
     children: [
       {
         title: 'task one',
-        path: AppRoutes.OKS + '/task_one',
+        path: AppRoutes.OKS + AppRoutes.TASK_ONE,
         element: <OksanaComponent/>,
       },
       {
@@ -55,7 +55,7 @@ export default [
     children: [
       {
         title: 'task one',
-        path: AppRoutes.MILYAVSKIY + '/task_one',
+        path: AppRoutes.MILYAVSKIY + AppRoutes.TASK_ONE,
         element: <ClassComponent count={0} />
       },
       {
