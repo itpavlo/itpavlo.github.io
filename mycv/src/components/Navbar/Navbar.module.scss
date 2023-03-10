@@ -1,10 +1,14 @@
 .container{
-  background-color: #a2a2e5;
+  background-color: white;
+  border-bottom: 1px solid #f0f0f0;
   height: 40px;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  &:hover{
-    background-color: yellow;
+  a {
+    color: #1d1d1d;
+    &:hover {
+      color: #1777ff;
+    }
   }
 }

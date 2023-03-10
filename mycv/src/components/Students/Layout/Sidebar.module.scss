@@ -1,0 +1,44 @@
+.sidebar {
+  width: 300px;
+  background-color: white;
+  color: #1d1d1d;
+  border-right: 1px solid #f0f0f0;
+  height: 95vh;
+  padding: 20px;
+}
+
+.menu {
+
+}
+
+.menuItem {
+  margin-bottom: 10px;
+
+  span{
+    &:hover {
+      cursor: pointer;
+      color: #1777ff;
+    }
+  }
+
+  .subMenu {
+    display: none;
+    margin-top: 10px;
+    li{
+      margin-bottom: 5px;
+      a {
+        color: #1d1d1d;
+        &:hover {
+          color: #1777ff;
+        }
+      }
+    }
+  }
+  &.active {
+    text-decoration: underline;
+    .subMenu {
+      display: block;
+    }
+  }
+}
+

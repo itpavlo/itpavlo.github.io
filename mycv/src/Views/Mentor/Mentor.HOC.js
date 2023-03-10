@@ -1,7 +1,7 @@
 import Mentor from "./Mentor";
 import Navbar from "../../components/Navbar/Navbar";
 import { useEffect, useState } from "react";
-import DUmbComponent from "../../components/dumbComponent";
+import DUmbComponent from "../../components/Mentor/dumbComponent";
 
 const MentorContainerHOC = ({Component}) => {
     const [fetchData, setFetchData] = useState([])

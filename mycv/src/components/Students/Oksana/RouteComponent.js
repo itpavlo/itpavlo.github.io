@@ -1,6 +1,6 @@
 import { Link, Outlet, useNavigate } from 'react-router-dom';
 import style from './RouteComponent.module.scss'
-import { AppRoutes } from '../../common/AppRoutes';
+import { AppRoutes } from '../../../common/AppRoutes';
 
 export const RouteLoginComponent = () => {
   const navigate = useNavigate()
@@ -10,7 +10,7 @@ export const RouteLoginComponent = () => {
     navigate(AppRoutes.ROUTE_OKS)
   }
   return (
-    <div>
+    <div style={{display: 'flex', justifyContent: 'space-between'}}>
       <button onClick={() => remember('user')}>
         Made User
       </button>
@@ -54,13 +54,13 @@ const RouteComponent = () => {
   return (
     <div className={style.container}>
       <div className={style.navigation}>
-        <Link to={AppRoutes.ROUTE_OKS_LOGIN}>
+        <Link to={AppRoutes.OKS + '/task_two/login'}>
           Login
         </Link>
-        <Link to={AppRoutes.ROUTE_OKS_USER}>
+        <Link to={AppRoutes.OKS + '/task_two/user'}>
           User
         </Link>
-        <Link to={AppRoutes.ROUTE_OKS_ADMIN}>
+        <Link to={AppRoutes.OKS + '/task_two/admin'}>
           Admin
         </Link>
       </div>
