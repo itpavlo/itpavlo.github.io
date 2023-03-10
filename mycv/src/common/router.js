@@ -1,20 +1,14 @@
 import { createBrowserRouter } from "react-router-dom";
 import { AppRoutes } from "./AppRoutes";
-import OksanaComponent from "../components/Oksana/OksanaComponent";
 import App from "../App";
 
-import RouteComponent, {
-    CheckAccess,
-    RouteAdminComponent,
-    RouteLoginComponent,
-    RouteUserComponent
-} from '../components/Oksana/RouteComponent';
-import Lviv_milyavskiy from "../components/milyavskiyV/milyavskiy";
 import Navbar from "../components/Navbar/Navbar";
 import { PrivateRoute, PublicRoute } from "../components/HOC/RoutesHOCs/ROutesHOCs";
 import Login from "../Views/Login/Login";
 import MentorContainerHOC from "../Views/Mentor/Mentor.HOC";
 import Mentor from "../Views/Mentor/Mentor";
+import Layout from '../components/Students/Layout/Layout';
+import students from '../components/Students/Layout/students';
 
 export const router = createBrowserRouter([
     {
@@ -22,44 +16,6 @@ export const router = createBrowserRouter([
         element: <App/>,
         errorElement: <h1>NOT FOUND</h1>,
         children: [
-            {
-                path: AppRoutes.OKS,
-                element: <OksanaComponent/>,
-                errorElement: <h1>NOT FOUND</h1>,
-            },
-            {
-                path: AppRoutes.ROUTE_OKS,
-                element: <RouteComponent/>,
-                errorElement: <h1>NOT FOUND</h1>,
-                children: [
-                    {
-                        path: AppRoutes.ROUTE_OKS_LOGIN,
-                        element: <RouteLoginComponent/>,
-                    },
-                    {
-                        path: AppRoutes.ROUTE_OKS_USER,
-                        element: <CheckAccess
-                          permissions={['user', 'admin']}
-                          Component={RouteUserComponent}
-                        />,
-                    },
-                    {
-                        path: AppRoutes.ROUTE_OKS_ADMIN,
-                        element: <CheckAccess
-                          permissions={['admin']}
-                          Component={RouteAdminComponent}
-                        />,
-                    },
-                ]
-            },
-            {
-                path: AppRoutes.OKS,
-                element: <OksanaComponent/>,
-            },
-            {
-                path: AppRoutes.ROUTE_OKS,
-                element: <PrivateRoute Component={RouteComponent} />,
-            },
             {
                 path: AppRoutes.USER_PROFILE,
                 element: <Login />
@@ -88,5 +44,9 @@ export const router = createBrowserRouter([
         // element: <MentorContainerHOC Component={Mentor}/>,
         element: <PrivateRoute Component={MentorContainerHOC} childComponent={Mentor}/>,
     },
-
+    {
+        path: AppRoutes.STUDENTS,
+        element: <Layout/>,
+        children: students
+    }
 ]);

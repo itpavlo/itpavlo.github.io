@@ -2,10 +2,10 @@ import Navbar from "./components/Navbar/Navbar";
 import { Outlet} from "react-router-dom";
 import "./index.css";
 import { AppRoutes } from "./common/AppRoutes";
-import Lviv_milyavskiy from "./components/milyavskiyV/milyavskiy"
+import Lviv_milyavskiy from "./components/Students/milyavskiyV/milyavskiy"
 import { HOCExample1, HOCExample2 } from "./components/HOC/HOCEXAMPLE/HOCExample";
 import { useEffect } from "react";
-import Coment from "./components/IvanMakow/IvanMakowComponent";
+import Coment from "./components/Students/IvanMakow/IvanMakowComponent";
 
 
 
