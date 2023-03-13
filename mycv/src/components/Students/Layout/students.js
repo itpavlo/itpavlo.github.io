@@ -9,6 +9,8 @@ import RouteComponent, {
 import ClassComponent from '../milyavskiyV/ClassComponent';
 import Lviv_milyavskiy from '../milyavskiyV/milyavskiy';
 import Coment from '../IvanMakow/IvanMakowComponent';
+import RegisterForm from '../Oksana/RegisterForm';
+import LoginForm from '../Oksana/LoginForm';
 
 //Всі роути студентів додаються тільки тут!!!
 // Для кожного студента обовʼязкові опції name i children, де name - це імʼя студента, а children - це масив завдань
@@ -47,6 +49,16 @@ export default [
             />,
           },
         ]
+      },
+      {
+        title: 'register form',
+        path: AppRoutes.OKS + '/register',
+        element: <RegisterForm/>
+      },
+      {
+        title: 'login form',
+        path: AppRoutes.OKS + '/login',
+        element: <LoginForm/>
       }
     ]
   },
