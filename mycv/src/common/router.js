@@ -10,6 +10,7 @@ import Mentor from "../Views/Mentor/Mentor";
 import Layout from '../components/Students/Layout/Layout';
 import students from '../components/Students/Layout/students';
 import AxiosComp from "../Views/Mentor/Axios";
+import AxiosRedux from "../Views/Mentor/AxiosRedux";
 
 export const router = createBrowserRouter([
     {
@@ -43,7 +44,7 @@ export const router = createBrowserRouter([
     {
         path: AppRoutes.MENTOR,
         // element: <MentorContainerHOC Component={Mentor}/>,
-        element: <PrivateRoute Component={MentorContainerHOC} childComponent={AxiosComp}/>,
+        element: <PrivateRoute Component={MentorContainerHOC} childComponent={AxiosRedux}/>,
     },
     {
         path: AppRoutes.STUDENTS,

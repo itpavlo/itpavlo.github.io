@@ -26,7 +26,9 @@ export const getMethods = {
   getCharacters: () =>
       instance.get(Endpoints.CHARACTER),
   getCharactersByPageNumber: (pageNumber) =>
-      instance.get(Endpoints.CHARACTER + '?page=' + pageNumber)
+      instance.get(Endpoints.CHARACTER + '?page=' + pageNumber),
+  universalGetCharacters:(pageNumber) =>
+      instance.get(`${Endpoints.CHARACTER}${pageNumber !==1 ? '?page=' + pageNumber : ""}`),
 }
 
 
