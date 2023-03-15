@@ -11,6 +11,8 @@ import Lviv_milyavskiy from '../milyavskiyV/milyavskiy';
 import Coment from '../IvanMakow/IvanMakowComponent';
 import RegisterForm from '../Oksana/RegisterForm';
 import LoginForm from '../Oksana/LoginForm';
+import AxiosRoute from '../Oksana/Axios';
+
 
 //Всі роути студентів додаються тільки тут!!!
 // Для кожного студента обовʼязкові опції name i children, де name - це імʼя студента, а children - це масив завдань
@@ -59,6 +61,11 @@ export default [
         title: 'login form',
         path: AppRoutes.OKS + '/login',
         element: <LoginForm/>
+      },
+      {
+        title: 'axios route',
+        path: AppRoutes.OKS + '/axios_route',
+        element: <AxiosRoute/>
       }
     ]
   },
