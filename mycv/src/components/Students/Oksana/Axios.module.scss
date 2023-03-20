@@ -1,0 +1,15 @@
+.search, .cardList {
+  display: flex;
+  justify-content: space-between;
+}
+.cardList {
+  flex-flow: row wrap;
+  padding: 10px 0;
+}
+
+.card {
+  min-width: 200px;
+  margin-bottom: 20px;
+  text-align: center;
+  font-weight: bold;
+}
