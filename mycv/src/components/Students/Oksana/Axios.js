@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Button, Container, Input } from 'rsuite';
+import { useEffect, useState } from 'react';
+import { Button, Container, Input, Pagination } from 'rsuite';
 import axios from 'axios';
 import style from './Axios.module.scss'
 
@@ -8,7 +8,7 @@ const Card = ({movie}) => (
     <div>
       <img src={movie.Poster}/>
     </div>
-    <div>
+    <div style={{marginTop: '10px'}}>
       {movie.Title}
     </div>
     <div>
@@ -20,18 +20,34 @@ const Card = ({movie}) => (
 const AxiosRoute = () => {
   const [search, setSearch] = useState('')
   const [loading, setLoading] = useState(false)
-  const [movies, setMovies] = useState([])
+  const [activePage, setActivePage] = useState(0);
+  const [result, setResult] = useState(
+    {
+    movies: [],
+    total: 0
+  })
 
-  const loadMovies = () => {
-    const url = `https://www.omdbapi.com/?s=${search}&apikey=11770bcf`;
+  const loadMovies = (page) => {
+    const url = `https://www.omdbapi.com/?s=${search}&apikey=11770bcf&page=${page}`;
     setLoading(true)
 
     axios.get(url)
       .then((response) => {
-        setMovies(response.data.Search)
+        setResult({
+          movies: response.data.Search,
+          total: response.data.totalResults
+        })
         setLoading(false)
       })
   }
+
+  useEffect(() => {
+      if (activePage > 0) {
+        loadMovies(activePage)
+      }
+    }
+  , [activePage]);
+
 
   return (
     <div>
@@ -52,8 +68,22 @@ const AxiosRoute = () => {
             </Button>
           </div>
             <div className={style.cardList}>
-              {movies.map((movie) => (<Card key={movie.imdbID} movie={movie}/>))}
+              {result.movies.map((movie) => (<Card key={movie.imdbID} movie={movie}/>))}
             </div>
+        {result.movies.length > 0 && (
+          <Pagination
+            prev
+            last
+            next
+            first
+            size="md"
+            total={result.total}
+            limit={10}
+            activePage={activePage}
+            onChangePage={setActivePage}
+          />
+        )
+        }
       </Container>
     </div>
   )
