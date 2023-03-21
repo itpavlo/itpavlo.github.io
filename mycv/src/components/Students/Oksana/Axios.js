@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { Button, Container, Input, Pagination } from 'rsuite';
 import axios from 'axios';
 import style from './Axios.module.scss'
+import { useDispatch, useSelector } from 'react-redux';
+import { oksanaActions } from '../../../redux/action/oksanaActions';
 
 const Card = ({movie}) => (
   <div className={style.card}>
@@ -18,14 +20,10 @@ const Card = ({movie}) => (
 )
 
 const AxiosRoute = () => {
+  const dispatch = useDispatch()
+  const store = useSelector(state => state.oksanaReducer)
   const [search, setSearch] = useState('')
   const [loading, setLoading] = useState(false)
-  const [activePage, setActivePage] = useState(0);
-  const [result, setResult] = useState(
-    {
-    movies: [],
-    total: 0
-  })
 
   const loadMovies = (page) => {
     const url = `https://www.omdbapi.com/?s=${search}&apikey=11770bcf&page=${page}`;
@@ -33,20 +31,15 @@ const AxiosRoute = () => {
 
     axios.get(url)
       .then((response) => {
-        setResult({
-          movies: response.data.Search,
-          total: response.data.totalResults
-        })
+        dispatch(oksanaActions.setMovies({
+          data: response.data.Search || [],
+          total: +response.data.totalResults,
+          page: page
+        }))
         setLoading(false)
       })
   }
 
-  useEffect(() => {
-      if (activePage > 0) {
-        loadMovies(activePage)
-      }
-    }
-  , [activePage]);
 
 
   return (
@@ -61,26 +54,26 @@ const AxiosRoute = () => {
             />
             <Button
               loading={loading}
-              onClick={loadMovies}
+              onClick={() => loadMovies(1)}
               appearance="primary"
             >
               Search
             </Button>
           </div>
             <div className={style.cardList}>
-              {result.movies.map((movie) => (<Card key={movie.imdbID} movie={movie}/>))}
+              {store.movies.data.map((movie) => (<Card key={movie.imdbID} movie={movie}/>))}
             </div>
-        {result.movies.length > 0 && (
+        {store.movies.data.length > 0 && (
           <Pagination
             prev
             last
             next
             first
             size="md"
-            total={result.total}
+            total={store.movies.total}
             limit={10}
-            activePage={activePage}
-            onChangePage={setActivePage}
+            activePage={store.movies.page}
+            onChangePage={loadMovies}
           />
         )
         }
