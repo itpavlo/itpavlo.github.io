@@ -6,7 +6,6 @@ import styles from './Layout.module.scss'
 const Layout = () => {
   return (
     <div>
-      <Navbar/>
       <div className={styles.container}>
          <Sidebar/>
           <div className={styles.content}>

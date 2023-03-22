@@ -19,6 +19,12 @@ const usersReducer = (state = initialState, action) => {
                 ...state,
                 info: action.info
             }
+        case userActionTypes.SET_DATA:
+            return {
+                ...state,
+                characters: action.data.results,
+                info: action.data.info
+            }
         default:
             return state
     }

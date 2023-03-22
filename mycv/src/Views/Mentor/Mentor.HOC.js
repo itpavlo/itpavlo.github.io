@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import DUmbComponent from "../../components/Mentor/dumbComponent";
 
+
 const MentorContainerHOC = ({Component}) => {
     const [fetchData, setFetchData] = useState([])
     const handleDelete = (index) => console.log(index)
@@ -20,7 +21,7 @@ const MentorContainerHOC = ({Component}) => {
                     users={fetchData?.results}
                     handleDelete={handleDelete}
                 />}
-            <DUmbComponent name={"Mariia"}/>
+            {/*<DUmbComponent name={"Mariia"}/>*/}
         </>
     )
 }

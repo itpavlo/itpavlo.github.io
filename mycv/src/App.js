@@ -24,7 +24,7 @@ function App() {
 
   return (
     <div>
-        <Navbar />
+
         {/*<HOCExample1 Component={Navbar}/>*/}
         {/*<Lviv_milyavskiy/>*/}
         <HOCExample2>

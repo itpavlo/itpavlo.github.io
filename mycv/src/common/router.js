@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, Outlet } from "react-router-dom";
 import { AppRoutes } from "./AppRoutes";
 import App from "../App";
 
@@ -11,13 +11,26 @@ import Layout from '../components/Students/Layout/Layout';
 import students from '../components/Students/Layout/students';
 import AxiosComp from "../Views/Mentor/Axios";
 import AxiosRedux from "../Views/Mentor/AxiosRedux";
+import REST from "../Views/Mentor/components/REST.js";
 
+const AppLayout = () => {
+    return (
+        <>
+            <Navbar />
+            <Outlet />
+        </>
+    );
+};
 export const router = createBrowserRouter([
     {
-        path: AppRoutes.MAIN,
-        element: <App/>,
+        element: <AppLayout />,
         errorElement: <h1>NOT FOUND</h1>,
         children: [
+            {
+                path: AppRoutes.MAIN,
+                element: <App/>,
+                errorElement: <h1>NOT FOUND</h1>,
+            },
             {
                 path: AppRoutes.USER_PROFILE,
                 element: <Login />
@@ -35,20 +48,20 @@ export const router = createBrowserRouter([
                 element: <h1>Ihor</h1>,
                 errorElement: <h1>NOT FOUND</h1>,
             },
+            {
+                path: AppRoutes.NOT_FOUND,
+                element: <h1>NOT FOUND</h1>,
+            },
+            {
+                path: AppRoutes.MENTOR,
+                // element: <MentorContainerHOC Component={Mentor}/>,
+                element: <PrivateRoute Component={MentorContainerHOC} childComponent={REST}/>,
+            },
+            {
+                path: AppRoutes.STUDENTS,
+                element: <Layout/>,
+                children: students
+            }
         ]
-    },
-    {
-        path: AppRoutes.NOT_FOUND,
-        element: <h1>NOT FOUND</h1>,
-    },
-    {
-        path: AppRoutes.MENTOR,
-        // element: <MentorContainerHOC Component={Mentor}/>,
-        element: <PrivateRoute Component={MentorContainerHOC} childComponent={AxiosRedux}/>,
-    },
-    {
-        path: AppRoutes.STUDENTS,
-        element: <Layout/>,
-        children: students
     }
 ]);
