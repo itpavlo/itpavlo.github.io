@@ -1,6 +1,8 @@
 import React, {SetStateAction, useEffect, useState} from "react";
 import axios from "axios";
 import {User} from "../../../interfaces/interfaces";
+//@ts-ignore
+import styles from './REST.module.scss';
 
 
 const Container = () => {
@@ -87,7 +89,7 @@ const REST = ({deleteItems, handleChange, searchValue, userForDelete, handleDele
         <button onClick={deleteItems}>Delete!!!!</button>
         <input type="text" onChange={handleChange} value={searchValue}/>
 
-        {userForDelete?.map(item => <div>
+        {userForDelete?.map(item => <div >
             <p>ID - {item.id} - {item.name}</p>
             <button onClick={() => handleDelete(item.id)}>Delete</button>
             <hr/>
@@ -99,7 +101,7 @@ const REST = ({deleteItems, handleChange, searchValue, userForDelete, handleDele
         <br/>
         {/*{users?.filter(item => item?.name.toLowerCase()?.includes(searchValue?.toLowerCase())).map(user => (*/}
         {users?.map(user => (
-            <div key={user.id + user.username}>
+            <div key={user.id + user.username} className={styles.user}>
                 <p>{user.name}</p>
                 <hr/>
             </div>

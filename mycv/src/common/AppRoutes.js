@@ -1,5 +1,7 @@
 export const AppRoutes = {
     MAIN: '/',
+    MENTOR_SIGN_UP: '/mentor/register',
+    MENTOR_LOGIN: '/mentor/login',
     IHOR: '/ihor',
     USER_PROFILE: '/users/:userID',
     LOGIN: '/login',

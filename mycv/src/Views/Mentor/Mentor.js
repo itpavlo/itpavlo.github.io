@@ -116,7 +116,6 @@ const Mentor = ({users, handleDelete}) => {
         });
     };
 
-    console.log(formValues)
      return (
         <div>
             <Navbar />

@@ -7,7 +7,6 @@ const initialState = {
     }
 }
 const usersReducer = (state = initialState, action) => {
-    console.log(action)
     switch (action.type) {
         case userActionTypes.SET_CHARACTERS:
             return {
