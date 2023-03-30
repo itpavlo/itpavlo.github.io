@@ -1,7 +1,6 @@
 import React, {SetStateAction, useEffect, useState} from "react";
 import axios from "axios";
 import {User} from "../../../interfaces/interfaces";
-//@ts-ignore
 import styles from './REST.module.scss';
 
 

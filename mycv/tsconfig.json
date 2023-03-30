@@ -19,6 +19,7 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
+    "plugins": [{ "name": "typescript-plugin-css-modules" }],
     "declaration": true, // Generate corresponding .d.ts file
     "incremental": true, // Enable incremental compilation by reading/writing information from prior compilations to a file on disk
     "typeRoots": [
