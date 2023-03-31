@@ -3,7 +3,12 @@ import { AppRoutes } from "./AppRoutes";
 import App from "../App";
 
 import Navbar from "../components/Navbar/Navbar";
-import {PrivateMentorRoute, PrivateRoute, PublicRoute} from "../components/HOC/RoutesHOCs/ROutesHOCs";
+import {
+    PrivateMentorRoute,
+    PrivateRoute,
+    PrivateRouteForHOC,
+    PublicRoute
+} from "../components/HOC/RoutesHOCs/ROutesHOCs";
 import Login from "../Views/Login/Login";
 import MentorContainerHOC from "../Views/Mentor/Mentor.HOC";
 import Mentor from "../Views/Mentor/Mentor";
@@ -17,6 +22,7 @@ import FirebaseComponent from "../Views/Mentor/components/FIREBASE/FirebaseCompo
 import SignUP from "../Views/Mentor/components/FIREBASE/SignUP/SignUP";
 import SignIN from "../Views/Mentor/components/FIREBASE/SignUP/SignIN";
 import FBFunctions from "../Views/Mentor/components/FIREBASE/ACtions/FBFunctions";
+import FBFunctionsHOC from "../Views/Mentor/components/FIREBASE/ACtions/FBFunctionsHOC";
 
 const AppLayout = () => {
     return (
@@ -38,17 +44,13 @@ export const router = createBrowserRouter([
             },
             {
                 path: AppRoutes.USER_PROFILE,
-                element: <Login />
+                element: <PrivateRouteForHOC  HOC={FBFunctionsHOC} Component={FBFunctions}/>
             },
-            {
-                path: AppRoutes.LOGIN,
-                element: <PublicRoute Component={Login} />,
-            },
-            {
-                path: AppRoutes.IHOR,
-                element: <PrivateMentorRoute Component={FBFunctions} />,
-                errorElement: <h1>NOT FOUND</h1>,
-            },
+            // {
+            //     path: AppRoutes.IHOR,
+            //     element: <PrivateMentorRoute Component={FBFunctions} />,
+            //     errorElement: <h1>NOT FOUND</h1>,
+            // },
             {
                 path: AppRoutes.NOT_FOUND,
                 element: <h1>NOT FOUND</h1>,
@@ -56,18 +58,16 @@ export const router = createBrowserRouter([
             {
                 path: AppRoutes.MENTOR,
                 element: <MentorContainerHOC Component={FirebaseComponent}/>,
-                // element: <PrivateRoute Component={MentorContainerHOC} childComponent={FirebaseComponent}/>,
-                children:[
-                    {
-                        path: AppRoutes.MENTOR_SIGN_UP,
-                        element: <SignUP />,
-                    },
-                    {
-                        path: AppRoutes.MENTOR_LOGIN,
-                        element: <SignIN />,
-                    },
-                ]
             },
+            {
+                path: AppRoutes.MENTOR_SIGN_UP,
+                element: <PublicRoute Component={SignUP} />,
+            },
+            {
+                path: AppRoutes.MENTOR_LOGIN,
+                element: <PublicRoute Component={SignIN} />,
+            },
+
             {
                 path: AppRoutes.STUDENTS,
                 element: <Layout/>,

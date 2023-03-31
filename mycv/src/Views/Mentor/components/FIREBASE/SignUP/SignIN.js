@@ -21,10 +21,9 @@ const SignIN = () => {
 
     const handleSignIN = async () => {
         try {
-            const user = await signInWithEmailAndPassword(auth, formValue.email, formValue.password)
-            localStorage.setItem('authUser', JSON.stringify(user.user))
-
-            user?.user?.uid && navigate(AppRoutes.IHOR)
+            const response = await signInWithEmailAndPassword(auth, formValue.email, formValue.password)
+            localStorage.setItem('authUser', JSON.stringify(response.user))
+            response?.user?.uid && navigate(`/users/${response.user.uid}`)
         } catch (e) {
             console.log(e.message)
         }

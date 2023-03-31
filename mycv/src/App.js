@@ -8,18 +8,18 @@ import Coment from "./components/Students/IvanMakow/IvanMakowComponent";
 
 
 function App() {
-    console.log('APP')
-
-    useEffect(()=>{
-        const user = JSON.parse(localStorage.getItem('authUser'))
-        console.log(user)
-        user === null && localStorage.setItem('authUser', JSON.stringify(
-            {
-                name: 'AI',
-                id: "userID"
-            }
-        ))
-    }, [])
+    // console.log('APP')
+    //
+    // useEffect(()=>{
+    //     const user = JSON.parse(localStorage.getItem('authUser'))
+    //     console.log(user)
+    //     user === null && localStorage.setItem('authUser', JSON.stringify(
+    //         {
+    //             name: 'AI',
+    //             id: "userID"
+    //         }
+    //     ))
+    // }, [])
 
 
   return (
