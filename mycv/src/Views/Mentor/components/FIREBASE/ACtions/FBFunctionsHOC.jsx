@@ -1,6 +1,7 @@
+import { ref, uploadBytesResumable, getDownloadURL, deleteObject } from "firebase/storage";
 import {collection, addDoc, onSnapshot, doc, setDoc, deleteDoc} from "firebase/firestore";
 import {onAuthStateChanged, signOut} from "firebase/auth";
-import db, {auth} from '../../../../../firebase'
+import db, {auth, storage} from '../../../../../firebase'
 import {AppRoutes} from "../../../../../common/AppRoutes";
 import {useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
@@ -39,6 +40,7 @@ const mockData = {
 }
 const FBFunctionsHOC = ({Component}) => {
     const [cvState, setCVState] = useState({})
+    const [isEditMode, setIsEditMode] = useState(false)
     const navigate = useNavigate();
     const authUser = JSON.parse(localStorage.getItem('authUser'))
 
@@ -72,7 +74,21 @@ const FBFunctionsHOC = ({Component}) => {
             setCVState(snapshot.docs.map(doc => ({...doc.data(), id: doc.id}))[0])
         })
     }
+    const handleGIEdit = async (formValue) => {
+        const docRef = doc(db, authUser.uid, cvState.id)
+        try{
+            const newCV = {
+                myCV: {
+                    ...cvState.myCV,
+                    generalInfo: formValue
+                }};
 
+            await setDoc(docRef, newCV)
+        }catch (e) {
+
+        }
+        setIsEditMode(false)
+    }
     //edit FB data
     const handleGeneralInfoChange = async ()=> {
         const newCV = {
@@ -105,6 +121,51 @@ const FBFunctionsHOC = ({Component}) => {
         }
     }
 
+    const deleteImageFormStorage = (url) => {
+        const desertRef = ref(storage, url);
+
+        deleteObject(desertRef).then(() => {
+            console.log('File deleted successfully')
+        }).catch((error) => {
+            console.log('error')
+        });
+    }
+
+    const uploadFile = (file, handleInputChange, setUploading, setFileInfo) => {
+        console.log(file)
+        const storageRef = ref(storage, `/${authUser.uid}/images/${file.name}`);
+
+        const uploadData = uploadBytesResumable(storageRef, file);
+
+
+
+        uploadData.on('state_changed',
+            (snapshot) => {
+            const progress = (snapshot.bytesTransferred/snapshot.totalBytes)*100
+            console.log(progress);
+        },
+            (err)=>  {
+            console.log(err);
+            setUploading(false);
+            setFileInfo('')
+            },
+            ()=> {
+                getDownloadURL(uploadData.snapshot.ref)
+                    .then(url => {
+                        console.log(url)
+                        handleInputChange('imageUrl', url)
+                        handleInputChange('imageName', file.name)
+
+
+                        cvState?.myCV?.generalInfo?.imageName &&  deleteImageFormStorage(`/${authUser.uid}/images/${cvState?.myCV?.generalInfo?.imageName}`)
+
+                        setUploading(false);
+                    })
+            }
+        )
+
+
+    }
     return (
         <Component
             handleSignOut={handleSignOut}
@@ -112,6 +173,10 @@ const FBFunctionsHOC = ({Component}) => {
             cv={cvState}
             handleGeneralInfoChange={handleGeneralInfoChange}
             handleDeleteDoc={handleDeleteDoc}
+            isEditMode={isEditMode}
+            setIsEditMode={setIsEditMode}
+            handleGIEdit={handleGIEdit}
+            uploadFile={uploadFile}
         />
     )
 }
