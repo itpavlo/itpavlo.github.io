@@ -7,7 +7,7 @@ const FirebaseComponent = () => {
         <div>
             <h1>FirebaseComponent</h1>
             <Link to={AppRoutes.MENTOR_LOGIN}>login</Link>
-            <Link to={`/users/${authUser.uid}`}>userPage</Link>
+            <Link to={`/users/${authUser?.uid}`}>userPage</Link>
             <Outlet />
         </div>
     )
