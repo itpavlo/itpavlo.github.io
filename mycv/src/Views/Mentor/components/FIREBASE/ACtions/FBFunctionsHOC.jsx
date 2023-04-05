@@ -4,7 +4,7 @@ import {onAuthStateChanged, signOut} from "firebase/auth";
 import db, {auth, storage} from '../../../../../firebase'
 import {AppRoutes} from "../../../../../common/AppRoutes";
 import {useNavigate} from "react-router-dom";
-import {useEffect, useState} from "react";
+import {useEffect, useState, createContext} from "react";
 
 const mockData = {
     myCV: {
@@ -38,6 +38,24 @@ const mockData = {
         }
     }
 }
+
+export const FBFunctionsHOCContext = createContext(null);
+
+const useGetInfo = (setCVState) => {
+    useEffect(()=>{
+        getInfo()
+    },[])
+
+    const authUser = JSON.parse(localStorage.getItem('authUser'))
+    const getInfo = () => {
+        const collectionRef = collection(db, authUser.uid)
+        onSnapshot(collectionRef, (snapshot)=>{
+            setCVState(snapshot.docs.map(doc => ({...doc.data(), id: doc.id}))[0])
+        })
+    }
+    return <h1>ihor</h1>
+}
+
 const FBFunctionsHOC = ({Component}) => {
     const [cvState, setCVState] = useState({})
     const [isEditMode, setIsEditMode] = useState(false)
@@ -45,10 +63,12 @@ const FBFunctionsHOC = ({Component}) => {
     const authUser = JSON.parse(localStorage.getItem('authUser'))
 
     // onAuthStateChanged(auth, (currentUser) => console.log(currentUser))
-    useEffect(()=>{
-        getInfo()
-    },[])
+    // useEffect(()=>{
+    //     getInfo()
+    // },[])
+    const name = useGetInfo(setCVState)
 
+    console.log('name', name)
     console.log('cvState', cvState)
     const handleSignOut = async () => {
         try{
@@ -67,13 +87,13 @@ const FBFunctionsHOC = ({Component}) => {
     const docRef =  await addDoc(collectionRef, mockData)
         docRef?.id && console.log(docRef)
     }
-
-    const getInfo = () => {
-        const collectionRef = collection(db, authUser.uid)
-        onSnapshot(collectionRef, (snapshot)=>{
-            setCVState(snapshot.docs.map(doc => ({...doc.data(), id: doc.id}))[0])
-        })
-    }
+    //
+    // const getInfo = () => {
+    //     const collectionRef = collection(db, authUser.uid)
+    //     onSnapshot(collectionRef, (snapshot)=>{
+    //         setCVState(snapshot.docs.map(doc => ({...doc.data(), id: doc.id}))[0])
+    //     })
+    // }
     const handleGIEdit = async (formValue) => {
         const docRef = doc(db, authUser.uid, cvState.id)
         try{
@@ -166,18 +186,23 @@ const FBFunctionsHOC = ({Component}) => {
 
 
     }
+    const context = {
+        handleSignOut,
+        addInfo: handleSignOut,
+        cv:cvState,
+        handleGeneralInfoChange,
+        handleDeleteDoc,
+        isEditMode,
+        setIsEditMode,
+        handleGIEdit,
+        uploadFile
+    }
+
     return (
-        <Component
-            handleSignOut={handleSignOut}
-            addInfo={addInfo}
-            cv={cvState}
-            handleGeneralInfoChange={handleGeneralInfoChange}
-            handleDeleteDoc={handleDeleteDoc}
-            isEditMode={isEditMode}
-            setIsEditMode={setIsEditMode}
-            handleGIEdit={handleGIEdit}
-            uploadFile={uploadFile}
-        />
+        <FBFunctionsHOCContext.Provider value={context}>
+            {/*{name}*/}
+        <Component />
+        </FBFunctionsHOCContext.Provider>
     )
 }
 export default FBFunctionsHOC;

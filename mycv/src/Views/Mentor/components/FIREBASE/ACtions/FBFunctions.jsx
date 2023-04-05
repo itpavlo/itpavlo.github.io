@@ -1,10 +1,12 @@
 import {collection, addDoc, onSnapshot, doc, setDoc, deleteDoc} from "firebase/firestore";
 import db from '../../../../../firebase'
-import {useState} from "react";
+import {useContext, useState} from "react";
 import { Uploader, Message, Loader, useToaster } from 'rsuite';
 import AvatarIcon from '@rsuite/icons/legacy/Avatar';
+import {FBFunctionsHOCContext} from "./FBFunctionsHOC";
 
-const DemoComponent = ({cv}) => {
+const DemoComponent = () => {
+    const {cv} = useContext(FBFunctionsHOCContext);
     return (
         <div>
             {cv?.myCV?.generalInfo?.imageUrl && <img style={{height: '50px'}} src={cv?.myCV?.generalInfo?.imageUrl} alt=""/>}
@@ -15,7 +17,9 @@ const DemoComponent = ({cv}) => {
 )
 }
 
-const EditComponent = ({cv, handleGIEdit, uploadFile}) => {
+const EditComponent = () => {
+    const {cv, handleGIEdit, uploadFile} = useContext(FBFunctionsHOCContext);
+
     const [formValue, setFormValue] = useState(cv.myCV.generalInfo)
     const [uploading, setUploading] = useState(false);
     const [fileInfo, setFileInfo] = useState('');
@@ -85,15 +89,15 @@ const EditComponent = ({cv, handleGIEdit, uploadFile}) => {
     )
 }
 
-const FBFunctions = ({handleSignOut, uploadFile, addInfo, cv, handleGeneralInfoChange, handleDeleteDoc, isEditMode, setIsEditMode, handleGIEdit}) => {
+const FBFunctions = () => {
+    const {handleSignOut, addInfo, cv, handleGeneralInfoChange, handleDeleteDoc, isEditMode, setIsEditMode} = useContext(FBFunctionsHOCContext);
 
-    console.log(cv)
     return (
         <div>
             <button onClick={()=>setIsEditMode((prevState) => !prevState)}>{isEditMode ? 'Save' : 'Edit'}</button>
             {isEditMode
-                ? <EditComponent cv={cv} handleGIEdit={handleGIEdit} uploadFile={uploadFile}/>
-                : <DemoComponent cv={cv}/>
+                ? <EditComponent />
+                : <DemoComponent />
             }
 
             <br/>
